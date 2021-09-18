@@ -29,7 +29,19 @@ h1 {
   align-items: center;
   border-bottom: 1px solid #F1F1F1;
 }
-
+.items {
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  flex-direction:row;
+  border-bottom: 1px solid #F1F1F1;
+}
+.item_text{
+  width:80%;
+}
+.items:last-child {
+  border-bottom: 0;
+}
 .item:last-child {
   border-bottom: 0;
 }
@@ -93,4 +105,8 @@ footer {
   color: white;
   color: rgba(0, 0, 0, 0.5);
   text-align: center;
+}
+.fa{
+  color:red;
+  font-size:1.3rem;
 }

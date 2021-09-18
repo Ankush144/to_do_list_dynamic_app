@@ -15,11 +15,20 @@ app.get("/",(req,res)=>{
     res.render('list', {kindofday:days[day],new_added_task:items});
     //res.send("ok");
 });
+
+app.get('/it*em',(req,res)=>{
+      let url = req.url;
+      let length = url.length-2;
+      let index = url.substring(3,length);
+      items.splice(index, 1);
+      res.redirect("/");
+    });
+
 app.post("/",(req,res)=>{
     const new_task = req.body.task;
     items.push(new_task);
     res.redirect("/");
 });
-app.listen(process.env.PORT || 3000,()=>{
+app.listen(process.env.PORT||3000,()=>{
     console.log("Working fine"); 
 });
