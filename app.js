@@ -24,39 +24,12 @@
         type:String,
         name:Array
     });
-    //creating a record or object of the above class
-    const item1 = items({
-        name:"Welcome to our todo list"
-    });
-    const item2 = items({
-        name:"Hit the + button to add a new item"
-    });
-    const item3 = items({
-        name:"<-- Hit this to delete an item"
-    });
-    //inserting all the objects in an array
-    const arr = [item1,item2,item3];
     
    
 //sending data on the client side from the server, client is getting data
-
     app.get("/",(req,res)=>{
-         //reading the data that we have inserted in the database
         items.find({},(err,result)=>{
-            //if the length of data is 0 then only we will insert the above arr in the database
-            if(!result.length){
-                //adding data to the database
-                items.insertMany(arr,(err)=>{
-                    if(err)
-                         console.log(err);
-                    else 
-                        console.log("Successfully added the data into the database");
-                });
-                //recalling this same method so that else condition will execute
-                res.redirect('/');
-            }else{
                     res.render('list',{list_type:"General",new_added_task:result});
-            }
         })
     });
     //creating diffrent type of list
@@ -64,7 +37,7 @@
         const topic = _.capitalize(req.params.topic);
         const list  = new lists({
             type:topic,
-            name:arr
+            name:new Array()
         });
         //there should be unique list for one topic, list is a record of lists table
         lists.findOne({type:topic},(err,data)=>{
@@ -116,7 +89,6 @@
             res.redirect('/');
         }else{
             lists.findOneAndUpdate({type:list_type},{$pull:{ name:{_id:mongodb.ObjectId(item_to_be_deleted)}}}, function(err, data){
-                console.log(err, data);
                 data.save().then(()=>{  
                     res.redirect("/"+list_type);    
                 });
