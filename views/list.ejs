@@ -1,37 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>to-do-list</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+<%-include("header")-%>
     <div class="box" id="heading">
-        <h1>Today is <%=kindofday%></h1>
+        <h1><%=list_type%></h1>
     </div>
     <div class="box">
-            <% for(let i=0;i< new_added_task.length;i++){ %> 
-              <div class="items particular_div">
-                <div class="item item_text">
-                  <input type="checkbox"> 
-                  <p id = " "> <%= new_added_task[i] %> </p>
+            <% new_added_task.forEach((task)=>{ %> 
+                <div class="items particular_div">
+                  <div class="item item_text">
+                    <input type="checkbox"> 
+                    <p id = " "> <%=task.name%> </p>
+                  </div>
+                  <form action="/delete" method="post">
+                      <div class="item delete_icon"> 
+                        <button type="submit" name="button" value='<%=task._id%>'><i class="fa fa-trash" name="icon" onclick="this.form.submit"></i></button>
+                      </div>
+                      <input type="hidden" name="list_name" value= "<%=list_type%>" id="">
+                  </form>
                 </div>
-                <div class="item delete_icon">
-                  <i class="fa fa-trash"></i>
-                </div>
-            
-              </div>
-            <% } %>
+            <% }) %>
             <form action="/" method="post" class="item">
                 <input type="text" name="task" id="" placeholder="New Item" autocomplete="off">
-                <button type="submit" class="button"> + </button>
+                <button type="submit" class="button" name="btn" value=<%=list_type%>> + </button>
             </form>
     </div>
-  <script src="script.js"></script>
-        
-   
-</body>
-</html>
+    
+<%-include("footer")-%>

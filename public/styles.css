@@ -68,7 +68,7 @@ form {
   margin-left: 20px;
 }
 
-button {
+.button {
   min-height: 50px;
   width: 50px;
   border-radius: 50%;
